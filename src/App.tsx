@@ -16,7 +16,12 @@ import { portfolioData } from './data';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const links = ['Sobre', 'Experiência', 'Habilidades', 'Projetos', 'Contato'];
+  const links = [];
+  if (portfolioData.personalInfo.about || portfolioData.stats.length > 0) links.push('Sobre');
+  if (portfolioData.experiences.length > 0) links.push('Experiência');
+  if (portfolioData.skills.length > 0) links.push('Habilidades');
+  if (portfolioData.projects.length > 0) links.push('Projetos');
+  links.push('Contato');
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/50">
@@ -85,14 +90,17 @@ const Hero = () => {
           </span>
         </motion.h1>
 
-        <motion.p
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl leading-relaxed"
-        >
-          {portfolioData.personalInfo.role}. {portfolioData.personalInfo.about}
-        </motion.p>
+        {(portfolioData.personalInfo.role || portfolioData.personalInfo.about) && (
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl leading-relaxed"
+          >
+            {portfolioData.personalInfo.role && `${portfolioData.personalInfo.role}. `}
+            {portfolioData.personalInfo.about}
+          </motion.p>
+        )}
 
         <motion.div
           initial={{ y: 20, opacity: 0 }}
@@ -113,6 +121,8 @@ const Hero = () => {
 };
 
 const About = () => {
+  if (!portfolioData.personalInfo.about && portfolioData.stats.length === 0) return null;
+
   return (
     <section id="sobre" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -156,6 +166,8 @@ const About = () => {
 };
 
 const Experience = () => {
+  if (portfolioData.experiences.length === 0) return null;
+
   return (
     <section id="experiência" className="py-24 bg-zinc-900/20">
       <div className="max-w-7xl mx-auto px-6">
@@ -203,6 +215,8 @@ const Experience = () => {
 };
 
 const Skills = () => {
+  if (portfolioData.skills.length === 0) return null;
+
   return (
     <section id="habilidades" className="py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -257,6 +271,8 @@ const Skills = () => {
 };
 
 const Projects = () => {
+  if (portfolioData.projects.length === 0) return null;
+
   return (
     <section id="projetos" className="py-24 bg-zinc-900/20">
       <div className="max-w-7xl mx-auto px-6">
@@ -430,15 +446,21 @@ const Footer = () => {
         </p>
 
         <div className="flex gap-4">
-          <a href={portfolioData.personalInfo.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
-            <Github size={20} />
-          </a>
-          <a href={portfolioData.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
-            <Linkedin size={20} />
-          </a>
-          <a href={`mailto:${portfolioData.personalInfo.email}`} className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
-            <Mail size={20} />
-          </a>
+          {portfolioData.personalInfo.github && (
+            <a href={portfolioData.personalInfo.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+              <Github size={20} />
+            </a>
+          )}
+          {portfolioData.personalInfo.linkedin && (
+            <a href={portfolioData.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+              <Linkedin size={20} />
+            </a>
+          )}
+          {portfolioData.personalInfo.email && (
+            <a href={`mailto:${portfolioData.personalInfo.email}`} className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+              <Mail size={20} />
+            </a>
+          )}
         </div>
       </div>
     </footer>
