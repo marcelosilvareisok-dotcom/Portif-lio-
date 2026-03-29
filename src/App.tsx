@@ -8,9 +8,11 @@ import { motion } from 'motion/react';
 import {
   Github, Linkedin, Mail, ExternalLink, Code2,
   ChevronRight, Terminal, Layout, Database, Smartphone,
-  User, Briefcase, FolderGit2, Send, Menu, X, Share2
+  User, Briefcase, FolderGit2, Send, Menu, X, Share2, Settings
 } from 'lucide-react';
 import { portfolioData } from './data';
+import { AdminPanel } from './components/AdminPanel';
+import { useState } from 'react';
 
 // --- Components ---
 
@@ -433,12 +435,20 @@ const ShareButton = () => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ onAdminClick }: { onAdminClick: () => void }) => {
   return (
     <footer className="border-t border-zinc-800/50 bg-zinc-950 py-12">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-          Portfólio.
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Portfólio.
+          </div>
+          <button 
+            onClick={onAdminClick}
+            className="flex items-center gap-1 text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+          >
+            <Settings size={12} /> Área Administrativa
+          </button>
         </div>
         
         <p className="text-zinc-500 text-sm text-center md:text-left">
@@ -470,6 +480,12 @@ const Footer = () => {
 // --- Main App ---
 
 export default function App() {
+  const [view, setView] = useState('home');
+
+  if (view === 'admin') {
+    return <AdminPanel onClose={() => setView('home')} />;
+  }
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50 selection:bg-purple-500/30 font-sans">
       <Navbar />
@@ -481,7 +497,7 @@ export default function App() {
         <Projects />
         <Contact />
       </main>
-      <Footer />
+      <Footer onAdminClick={() => setView('admin')} />
       <ShareButton />
     </div>
   );
