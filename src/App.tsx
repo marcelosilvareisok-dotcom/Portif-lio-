@@ -10,6 +10,7 @@ import {
   ChevronRight, Terminal, Layout, Database, Smartphone,
   User, Briefcase, FolderGit2, Send, Menu, X, Share2
 } from 'lucide-react';
+import { portfolioData } from './data';
 
 // --- Components ---
 
@@ -80,7 +81,7 @@ const Hero = () => {
         >
           Olá, eu sou <br className="md:hidden" />
           <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
-            Marcelo da Silva Reis
+            {portfolioData.personalInfo.name}
           </span>
         </motion.h1>
 
@@ -90,8 +91,7 @@ const Hero = () => {
           transition={{ delay: 0.2 }}
           className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl leading-relaxed"
         >
-          Desenvolvedor Fullstack especializado em criar experiências digitais modernas,
-          rápidas e acessíveis. Transformando ideias em código.
+          {portfolioData.personalInfo.role}. {portfolioData.personalInfo.about}
         </motion.p>
 
         <motion.div
@@ -133,12 +133,7 @@ const About = () => {
             viewport={{ once: true, margin: "-100px" }}
             className="space-y-6 text-zinc-400 text-lg leading-relaxed"
           >
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <p>{portfolioData.personalInfo.about}</p>
           </motion.div>
 
           <motion.div
@@ -147,12 +142,7 @@ const About = () => {
             viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-2 gap-4"
           >
-            {[
-              { label: 'Anos de Experiência', value: '+5' },
-              { label: 'Projetos Entregues', value: '+50' },
-              { label: 'Clientes Satisfeitos', value: '+30' },
-              { label: 'Tecnologias', value: '+15' },
-            ].map((stat, i) => (
+            {portfolioData.stats.map((stat, i) => (
               <div key={i} className="bg-zinc-900/50 border border-zinc-800/50 p-6 rounded-2xl backdrop-blur-sm hover:border-purple-500/30 transition-colors">
                 <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
                 <div className="text-sm text-zinc-500">{stat.label}</div>
@@ -166,12 +156,6 @@ const About = () => {
 };
 
 const Experience = () => {
-  const experiences = [
-    { role: 'Desenvolvedor Sênior', company: 'Empresa Tech Placeholder', date: '2022 - Presente', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.' },
-    { role: 'Desenvolvedor Pleno', company: 'Agência Digital Placeholder', date: '2019 - 2022', desc: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
-    { role: 'Desenvolvedor Júnior', company: 'Startup Placeholder', date: '2017 - 2019', desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
-  ];
-
   return (
     <section id="experiência" className="py-24 bg-zinc-900/20">
       <div className="max-w-7xl mx-auto px-6">
@@ -187,7 +171,7 @@ const Experience = () => {
 
         <div className="max-w-3xl mx-auto">
           <div className="border-l-2 border-zinc-800 ml-4 md:ml-0 space-y-12">
-            {experiences.map((exp, i) => (
+            {portfolioData.experiences.map((exp, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -20 }}
@@ -219,13 +203,6 @@ const Experience = () => {
 };
 
 const Skills = () => {
-  const skills = [
-    { name: 'Frontend Development', icon: <Layout />, level: 90, color: 'from-blue-400 to-cyan-400' },
-    { name: 'Backend Development', icon: <Terminal />, level: 85, color: 'from-purple-400 to-pink-400' },
-    { name: 'Database Management', icon: <Database />, level: 80, color: 'from-emerald-400 to-teal-400' },
-    { name: 'Mobile Development', icon: <Smartphone />, level: 75, color: 'from-orange-400 to-red-400' },
-  ];
-
   return (
     <section id="habilidades" className="py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -240,7 +217,7 @@ const Skills = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {skills.map((skill, i) => (
+          {portfolioData.skills.map((skill, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -251,7 +228,7 @@ const Skills = () => {
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 bg-zinc-800/50 rounded-lg text-zinc-300 group-hover:text-white transition-colors">
-                  {skill.icon}
+                  <Code2 />
                 </div>
                 <h3 className="text-lg font-semibold text-white">{skill.name}</h3>
               </div>
@@ -280,12 +257,6 @@ const Skills = () => {
 };
 
 const Projects = () => {
-  const projects = [1, 2, 3, 4, 5, 6].map(i => ({
-    title: `Projeto Placeholder ${i}`,
-    desc: 'Descrição breve do projeto focando nas tecnologias utilizadas e no problema resolvido.',
-    tags: ['React', 'Tailwind', 'Node.js'],
-  }));
-
   return (
     <section id="projetos" className="py-24 bg-zinc-900/20">
       <div className="max-w-7xl mx-auto px-6">
@@ -300,7 +271,7 @@ const Projects = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((proj, i) => (
+          {portfolioData.projects.map((proj, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -316,10 +287,10 @@ const Projects = () => {
                 </div>
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-zinc-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-sm">
-                  <a href="#" className="p-3 bg-white/10 rounded-full hover:bg-purple-500 hover:text-white transition-colors text-zinc-300" title="Ver Demo">
+                  <a href={proj.demoUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 rounded-full hover:bg-purple-500 hover:text-white transition-colors text-zinc-300" title="Ver Demo">
                     <ExternalLink size={20} />
                   </a>
-                  <a href="#" className="p-3 bg-white/10 rounded-full hover:bg-purple-500 hover:text-white transition-colors text-zinc-300" title="Ver Código">
+                  <a href={proj.githubUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 rounded-full hover:bg-purple-500 hover:text-white transition-colors text-zinc-300" title="Perfil do GitHub">
                     <Github size={20} />
                   </a>
                 </div>
@@ -459,13 +430,13 @@ const Footer = () => {
         </p>
 
         <div className="flex gap-4">
-          <a href="#" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+          <a href={portfolioData.personalInfo.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
             <Github size={20} />
           </a>
-          <a href="#" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+          <a href={portfolioData.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
             <Linkedin size={20} />
           </a>
-          <a href="#" className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+          <a href={`mailto:${portfolioData.personalInfo.email}`} className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
             <Mail size={20} />
           </a>
         </div>
