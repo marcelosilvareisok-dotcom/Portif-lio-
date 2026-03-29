@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import {
   Github, Linkedin, Mail, ExternalLink, Code2,
   ChevronRight, Terminal, Layout, Database, Smartphone,
-  User, Briefcase, FolderGit2, Send, Menu, X
+  User, Briefcase, FolderGit2, Send, Menu, X, Share2
 } from 'lucide-react';
 
 // --- Components ---
@@ -80,7 +80,7 @@ const Hero = () => {
         >
           Olá, eu sou <br className="md:hidden" />
           <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
-            Seu Nome
+            Marcelo da Silva Reis
           </span>
         </motion.h1>
 
@@ -410,6 +410,42 @@ const Contact = () => {
   );
 };
 
+const ShareButton = () => {
+  const handleShare = async () => {
+    const shareText = 'Confira o portfólio de Marcelo da Silva Reis!';
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Portfólio - Marcelo da Silva Reis',
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        console.error('Erro ao compartilhar:', err);
+      }
+    } else {
+      // Fallback to WhatsApp
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  };
+
+  return (
+    <button
+      onClick={handleShare}
+      className="fixed bottom-6 right-6 p-4 bg-green-600 hover:bg-green-500 text-white rounded-full shadow-[0_0_20px_-5px_rgba(22,163,74,0.5)] hover:shadow-[0_0_25px_-5px_rgba(22,163,74,0.7)] transition-all z-50 flex items-center justify-center group"
+      title="Compartilhar no WhatsApp"
+    >
+      <Share2 size={24} />
+      <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 ease-in-out font-medium">
+        Compartilhar
+      </span>
+    </button>
+  );
+};
+
 const Footer = () => {
   return (
     <footer className="border-t border-zinc-800/50 bg-zinc-950 py-12">
@@ -419,7 +455,7 @@ const Footer = () => {
         </div>
         
         <p className="text-zinc-500 text-sm text-center md:text-left">
-          © {new Date().getFullYear()} Seu Nome. Todos os direitos reservados.
+          © {new Date().getFullYear()} Marcelo da Silva Reis. Todos os direitos reservados.
         </p>
 
         <div className="flex gap-4">
@@ -453,6 +489,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ShareButton />
     </div>
   );
 }
