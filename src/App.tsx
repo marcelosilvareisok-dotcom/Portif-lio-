@@ -74,10 +74,13 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
           className="w-32 h-32 rounded-full border-2 border-zinc-800 bg-zinc-900 mb-8 overflow-hidden relative group shadow-2xl"
         >
-          {/* Avatar Placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center text-zinc-500 group-hover:scale-110 group-hover:text-zinc-400 transition-all duration-500">
-            <User size={48} />
-          </div>
+          {/* Avatar Photo */}
+          <img 
+            src="/foto-perfil.jpg" 
+            alt={portfolioData.personalInfo.name} 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
         </motion.div>
 
         <motion.h1
