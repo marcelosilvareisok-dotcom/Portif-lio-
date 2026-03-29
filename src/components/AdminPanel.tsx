@@ -23,7 +23,7 @@ export const AdminPanel = ({ onClose }: { onClose: () => void }) => {
         <p className="text-zinc-400 mb-6">Aqui você pode baixar uma cópia de segurança dos dados atuais do seu portfólio em formato JSON.</p>
         <button
           onClick={handleDownload}
-          className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-lg font-medium transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)]"
+          className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/20 hover:-translate-y-0.5"
         >
           <Download size={20} /> Baixar Dados do Portfólio (JSON)
         </button>

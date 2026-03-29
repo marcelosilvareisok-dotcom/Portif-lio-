@@ -467,7 +467,19 @@ const Footer = ({ onAdminClick }: { onAdminClick: () => void }) => {
             </a>
           )}
           {portfolioData.personalInfo.email && (
-            <a href={`mailto:${portfolioData.personalInfo.email}`} className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all">
+            <a 
+              href={`mailto:${portfolioData.personalInfo.email}?subject=Meu Portfólio&body=Olá, segue em anexo o arquivo JSON com os dados do meu portfólio.`}
+              onClick={(e) => {
+                // Note: Standard mailto cannot attach files. 
+                // This is a browser limitation.
+                // We provide the data in the body as a fallback.
+                const data = JSON.stringify(portfolioData, null, 2);
+                const mailtoLink = `mailto:${portfolioData.personalInfo.email}?subject=Meu Portfólio&body=${encodeURIComponent('Olá, segue abaixo os dados do meu portfólio:\n\n' + data)}`;
+                e.currentTarget.href = mailtoLink;
+              }}
+              className="p-2 bg-zinc-900 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all"
+              title="Enviar portfólio por e-mail"
+            >
               <Mail size={20} />
             </a>
           )}
